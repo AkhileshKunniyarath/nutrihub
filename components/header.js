@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site";
 import { Logo } from "@/components/logo";
+import { useWishlist } from "@/components/wishlist-provider";
 
 function ProfileIcon() {
   return (
@@ -49,6 +50,7 @@ function CartIcon() {
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { wishlistCount } = useWishlist();
 
   return (
     <>
@@ -76,8 +78,9 @@ export function Header() {
                 <ProfileIcon />
                 <span className="sr-only">My Account</span>
               </Link>
-              <Link aria-label="Wishlist" className="header-action-icon icon-button" href="/wishlist">
+              <Link aria-label={`Wishlist${wishlistCount ? ` (${wishlistCount} saved)` : ""}`} className="header-action-icon icon-button" href="/wishlist">
                 <WishlistIcon />
+                {wishlistCount ? <span className="header-count-badge">{wishlistCount}</span> : null}
                 <span className="sr-only">Wishlist</span>
               </Link>
               <Link aria-label="Cart" className="header-action-icon header-cart-icon cta-button" href="/cart">

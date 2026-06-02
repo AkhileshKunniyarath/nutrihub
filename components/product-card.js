@@ -1,18 +1,8 @@
-import Link from "next/link";
+"use client";
 
-function HeartIcon() {
-  return (
-    <svg aria-hidden="true" className="card-icon" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M12 20.5 4.9 13.9a4.89 4.89 0 0 1 0-6.97 4.66 4.66 0 0 1 6.84.18L12 7.4l.26-.29a4.66 4.66 0 0 1 6.84-.18 4.89 4.89 0 0 1 0 6.97L12 20.5Z"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.7"
-      />
-    </svg>
-  );
-}
+import Link from "next/link";
+import { StarRating } from "@/components/star-rating";
+import { WishlistToggle } from "@/components/wishlist-toggle";
 
 export function ProductCard({ product }) {
   return (
@@ -24,12 +14,15 @@ export function ProductCard({ product }) {
             <span className="tag tag-green">Natural</span>
             <span className="tag">{product.badge}</span>
           </div>
-          <Link aria-label="Add to wishlist" className="wishlist-badge" href="/wishlist">
-            <HeartIcon />
-          </Link>
+          <WishlistToggle productId={product.id} productName={product.name} />
           <div className="product-card-overlay">
-            <Link className="ghost-button" href={`/products/${product.slug}`} style={{ padding: "0.5rem 1rem", fontSize: "0.85rem" }}>
-              Quick View
+            <Link className="card-action-button card-action-button-light card-action-button-compact" href={`/products/${product.slug}`}>
+              <span>Quick View</span>
+              <span className="card-action-button-icon" aria-hidden="true">
+                <svg viewBox="0 0 20 20" fill="none">
+                  <path d="M4.2 10h11.1M10.8 4.7 16 10l-5.2 5.3" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" />
+                </svg>
+              </span>
             </Link>
           </div>
         </div>
@@ -38,9 +31,7 @@ export function ProductCard({ product }) {
             <span className="micro-label" style={{ color: "var(--primary)", textTransform: "uppercase", fontSize: "0.75rem", letterSpacing: "0.08em" }}>
               {product.categorySlug.replaceAll("-", " ")}
             </span>
-            <span className="rating-inline" style={{ color: "#D4AF37", fontSize: "0.85rem" }}>
-              {"★".repeat(Math.round(product.rating))}
-            </span>
+            <StarRating size="sm" value={product.rating} />
           </div>
           <Link href={`/products/${product.slug}`}>
             <h3 style={{ fontSize: "1.35rem", fontWeight: "600", margin: "0 0 0.5rem", color: "var(--text)", cursor: "pointer" }}>
@@ -56,28 +47,22 @@ export function ProductCard({ product }) {
         <div className="price-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "0.5rem" }}>
           <div>
             <strong style={{ fontSize: "1.2rem", color: "var(--text)" }}>Rs {product.offerPrice}</strong>
-            <span style={{ fontSize: "0.9rem", textDecoration: "line-through", color: "var(--text-muted)", marginLeft: "0.5rem" }}>
+            <span className="price-compare" style={{ fontSize: "0.9rem", color: "var(--text-muted)", marginLeft: "0.5rem" }}>
               Rs {product.price}
             </span>
           </div>
-          <span className="muted" style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
+          <span className="review-count muted" style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
             {product.reviews} reviews
           </span>
         </div>
         <div style={{ marginTop: "1.1rem" }}>
-          <Link 
-            className="cta-button" 
-            href={`/products/${product.slug}`} 
-            style={{ 
-              width: "100%", 
-              justifyContent: "center", 
-              display: "flex", 
-              padding: "0.75rem 1rem", 
-              fontSize: "0.95rem",
-              borderRadius: "999px"
-            }}
-          >
-            Shop Blend
+          <Link className="card-action-button" href={`/products/${product.slug}`}>
+            <span>Shop Blend</span>
+            <span className="card-action-button-icon" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none">
+                <path d="M4.2 10h11.1M10.8 4.7 16 10l-5.2 5.3" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" />
+              </svg>
+            </span>
           </Link>
         </div>
       </div>

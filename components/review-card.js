@@ -1,3 +1,5 @@
+import { StarRating } from "@/components/star-rating";
+
 export function ReviewCard({ review }) {
   return (
     <article className="review-card" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
@@ -13,9 +15,7 @@ export function ReviewCard({ review }) {
         <div className="product-card-divider" />
         <div className="review-footer" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <strong style={{ color: "var(--text-soft)" }}>{review.name}</strong>
-          <span className="rating-inline" style={{ color: "#D4AF37" }}>
-            {"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}
-          </span>
+          <StarRating showValue={false} size="sm" value={review.rating} />
         </div>
       </div>
     </article>

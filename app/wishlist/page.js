@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ProductCard } from "@/components/product-card";
+import { WishlistGrid } from "@/components/wishlist-grid";
 import { products } from "@/lib/mock-data";
 
 export const metadata = {
@@ -21,11 +21,7 @@ export default function WishlistPage() {
             Back to Account
           </Link>
         </div>
-        <div className="product-grid">
-          {products.slice(1, 5).map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <WishlistGrid products={products} />
       </div>
     </section>
   );

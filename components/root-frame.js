@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { SiteShell } from "@/components/site-shell";
+import { WishlistProvider } from "@/components/wishlist-provider";
 
 export function RootFrame({ children }) {
   const pathname = usePathname();
@@ -14,10 +15,12 @@ export function RootFrame({ children }) {
   }
 
   return (
-    <SiteShell>
-      <Header />
-      <main>{children}</main>
-      <Footer />
-    </SiteShell>
+    <WishlistProvider>
+      <SiteShell>
+        <Header />
+        <main>{children}</main>
+        <Footer />
+      </SiteShell>
+    </WishlistProvider>
   );
 }
